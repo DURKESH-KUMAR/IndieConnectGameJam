@@ -1,63 +1,97 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {
-    private float horizontalInput, verticalInput;
-    private float currentSteerAngle, currentbreakForce;
-    private bool isBreaking;
+    private float horizontalInput;
+    private float verticalInput;
+    private bool isBraking;
 
-    // Settings
-    [SerializeField] private float motorForce, breakForce, maxSteerAngle;
+    private float currentSteerAngle;
+    private float currentMotorTorque;
+    private float currentBrakeForce;
 
-    // Wheel Colliders
-    [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider;
-    [SerializeField] private WheelCollider rearLeftWheelCollider, rearRightWheelCollider;
+    [Header("Car Settings")]
+    [SerializeField] private float motorForce = 2000f;
+    [SerializeField] private float brakeForce = 3000f;
+    [SerializeField] private float maxSteerAngle = 30f;
 
-    // Wheel Meshes
-    [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
-    [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
+    [Header("Smoothness")]
+    [SerializeField] private float steeringSpeed = 6f;
+    [SerializeField] private float accelerationSpeed = 5f;
+
+    [Header("Wheel Colliders")]
+    [SerializeField] private WheelCollider frontLeftWheelCollider;
+    [SerializeField] private WheelCollider frontRightWheelCollider;
+    [SerializeField] private WheelCollider rearLeftWheelCollider;
+    [SerializeField] private WheelCollider rearRightWheelCollider;
+
+    [Header("Wheel Meshes")]
+    [SerializeField] private Transform frontLeftWheelTransform;
+    [SerializeField] private Transform frontRightWheelTransform;
+    [SerializeField] private Transform rearLeftWheelTransform;
+    [SerializeField] private Transform rearRightWheelTransform;
+
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        // Makes physics movement much smoother
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+    }
+
+    private void Update()
+    {
+        // Read input every frame
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+        isBraking = Input.GetKey(KeyCode.Space);
+    }
 
     private void FixedUpdate()
     {
-        GetInput();
         HandleMotor();
         HandleSteering();
         UpdateWheels();
     }
 
-    private void GetInput()
-    {
-        // Keyboard Input
-        horizontalInput = Input.GetAxis("Horizontal"); // A/D or Left/Right Arrow
-        verticalInput = Input.GetAxis("Vertical");     // W/S or Up/Down Arrow
-
-        // Brake
-        isBreaking = Input.GetKey(KeyCode.Space);
-    }
-
     private void HandleMotor()
     {
-        frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
-        frontRightWheelCollider.motorTorque = verticalInput * motorForce;
+        float targetTorque = verticalInput * motorForce;
 
-        currentbreakForce = isBreaking ? breakForce : 0f;
-        ApplyBreaking();
+        // Smooth acceleration
+        currentMotorTorque = Mathf.Lerp(
+            currentMotorTorque,
+            targetTorque,
+            accelerationSpeed * Time.fixedDeltaTime);
+
+        frontLeftWheelCollider.motorTorque = currentMotorTorque;
+        frontRightWheelCollider.motorTorque = currentMotorTorque;
+
+        currentBrakeForce = isBraking ? brakeForce : 0f;
+
+        ApplyBrakes();
     }
 
-    private void ApplyBreaking()
+    private void ApplyBrakes()
     {
-        frontLeftWheelCollider.brakeTorque = currentbreakForce;
-        frontRightWheelCollider.brakeTorque = currentbreakForce;
-        rearLeftWheelCollider.brakeTorque = currentbreakForce;
-        rearRightWheelCollider.brakeTorque = currentbreakForce;
+        frontLeftWheelCollider.brakeTorque = currentBrakeForce;
+        frontRightWheelCollider.brakeTorque = currentBrakeForce;
+        rearLeftWheelCollider.brakeTorque = currentBrakeForce;
+        rearRightWheelCollider.brakeTorque = currentBrakeForce;
     }
 
     private void HandleSteering()
     {
-        currentSteerAngle = maxSteerAngle * horizontalInput;
+        float targetAngle = horizontalInput * maxSteerAngle;
+
+        // Smooth steering
+        currentSteerAngle = Mathf.Lerp(
+            currentSteerAngle,
+            targetAngle,
+            steeringSpeed * Time.fixedDeltaTime);
 
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
@@ -71,11 +105,11 @@ public class CarController : MonoBehaviour
         UpdateSingleWheel(rearRightWheelCollider, rearRightWheelTransform);
     }
 
-    private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
+    private void UpdateSingleWheel(WheelCollider collider, Transform wheel)
     {
-        wheelCollider.GetWorldPose(out Vector3 pos, out Quaternion rot);
+        collider.GetWorldPose(out Vector3 position, out Quaternion rotation);
 
-        wheelTransform.position = pos;
-        wheelTransform.rotation = rot;
+        wheel.position = position;
+        wheel.rotation = rotation;
     }
 }
