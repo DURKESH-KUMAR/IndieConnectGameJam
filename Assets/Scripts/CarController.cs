@@ -3,6 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {
+    public enum ControlType
+    {
+        WASD,
+        ArrowKeys
+    }
+
+    [Header("Control Settings")]
+    [SerializeField] private ControlType controlType = ControlType.WASD;
+
     private float horizontalInput;
     private float verticalInput;
     private bool isBraking;
@@ -37,17 +46,12 @@ public class CarController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
-        // Makes physics movement much smoother
         rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
     private void Update()
     {
-        // Read input every frame
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-        isBraking = Input.GetKey(KeyCode.Space);
+        GetInput();
     }
 
     private void FixedUpdate()
@@ -57,11 +61,50 @@ public class CarController : MonoBehaviour
         UpdateWheels();
     }
 
+    private void GetInput()
+    {
+        switch (controlType)
+        {
+            case ControlType.WASD:
+                horizontalInput = 0f;
+                verticalInput = 0f;
+
+                if (Input.GetKey(KeyCode.A))
+                    horizontalInput = -1f;
+                else if (Input.GetKey(KeyCode.D))
+                    horizontalInput = 1f;
+
+                if (Input.GetKey(KeyCode.W))
+                    verticalInput = 1f;
+                else if (Input.GetKey(KeyCode.S))
+                    verticalInput = -1f;
+
+                isBraking = Input.GetKey(KeyCode.LeftShift);
+                break;
+
+            case ControlType.ArrowKeys:
+                horizontalInput = 0f;
+                verticalInput = 0f;
+
+                if (Input.GetKey(KeyCode.LeftArrow))
+                    horizontalInput = -1f;
+                else if (Input.GetKey(KeyCode.RightArrow))
+                    horizontalInput = 1f;
+
+                if (Input.GetKey(KeyCode.UpArrow))
+                    verticalInput = 1f;
+                else if (Input.GetKey(KeyCode.DownArrow))
+                    verticalInput = -1f;
+
+                isBraking = Input.GetKey(KeyCode.RightShift);
+                break;
+        }
+    }
+
     private void HandleMotor()
     {
         float targetTorque = verticalInput * motorForce;
 
-        // Smooth acceleration
         currentMotorTorque = Mathf.Lerp(
             currentMotorTorque,
             targetTorque,
@@ -71,7 +114,6 @@ public class CarController : MonoBehaviour
         frontRightWheelCollider.motorTorque = currentMotorTorque;
 
         currentBrakeForce = isBraking ? brakeForce : 0f;
-
         ApplyBrakes();
     }
 
@@ -85,12 +127,11 @@ public class CarController : MonoBehaviour
 
     private void HandleSteering()
     {
-        float targetAngle = horizontalInput * maxSteerAngle;
+        float targetSteerAngle = horizontalInput * maxSteerAngle;
 
-        // Smooth steering
         currentSteerAngle = Mathf.Lerp(
             currentSteerAngle,
-            targetAngle,
+            targetSteerAngle,
             steeringSpeed * Time.fixedDeltaTime);
 
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
