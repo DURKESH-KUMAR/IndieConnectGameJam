@@ -12,22 +12,13 @@ public class CarController : MonoBehaviour
     [Header("Control Settings")]
     [SerializeField] private ControlType controlType = ControlType.WASD;
 
-    private float horizontalInput;
-    private float verticalInput;
-    private bool isBraking;
-
-    private float currentSteerAngle;
-    private float currentMotorTorque;
-    private float currentBrakeForce;
-
     [Header("Car Settings")]
-    [SerializeField] private float motorForce = 2000f;
-    [SerializeField] private float brakeForce = 3000f;
+    [SerializeField] private float motorForce = 1800f;
+    [SerializeField] private float brakeForce = 4000f;
     [SerializeField] private float maxSteerAngle = 30f;
 
     [Header("Smoothness")]
-    [SerializeField] private float steeringSpeed = 6f;
-    [SerializeField] private float accelerationSpeed = 5f;
+    [SerializeField] private float steeringSpeed = 8f;
 
     [Header("Wheel Colliders")]
     [SerializeField] private WheelCollider frontLeftWheelCollider;
@@ -46,6 +37,10 @@ public class CarController : MonoBehaviour
 
     private Rigidbody rb;
 
+    private float horizontalInput;
+    private bool isBraking;
+    private float currentSteerAngle;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -55,7 +50,6 @@ public class CarController : MonoBehaviour
     private void Update()
     {
         GetInput();
-        //transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, Mathf.Clamp(transform.rotation.z, -0.1f, 0.1f));
     }
 
     private void FixedUpdate()
@@ -68,44 +62,66 @@ public class CarController : MonoBehaviour
     private void GetInput()
     {
         horizontalInput = 0f;
-        if (Input.GetKey(KeyCode.A))
-            horizontalInput = -1f;
-        else if (Input.GetKey(KeyCode.D))
-            horizontalInput = 1f;
+
+        switch (controlType)
+        {
+            case ControlType.WASD:
+
+                if (Input.GetKey(KeyCode.A))
+                    horizontalInput = -1f;
+                else if (Input.GetKey(KeyCode.D))
+                    horizontalInput = 1f;
+
+                break;
+
+            case ControlType.ArrowKeys:
+
+                if (Input.GetKey(KeyCode.LeftArrow))
+                    horizontalInput = -1f;
+                else if (Input.GetKey(KeyCode.RightArrow))
+                    horizontalInput = 1f;
+
+                break;
+        }
+
+        // Space Bar brakes in both control modes
+        isBraking = Input.GetKey(KeyCode.Space);
     }
 
     private void HandleMotor()
     {
-        //float targetTorque = verticalInput * motorForce;
-        float targetTorque =  motorForce;
+        if (isBraking)
+        {
+            ApplyBrake(brakeForce);
 
-        currentMotorTorque = Mathf.Lerp(
-            currentMotorTorque,
-            targetTorque,
-            accelerationSpeed * Time.fixedDeltaTime);
+            frontLeftWheelCollider.motorTorque = 0f;
+            frontRightWheelCollider.motorTorque = 0f;
+        }
+        else
+        {
+            ApplyBrake(0f);
 
-        frontLeftWheelCollider.motorTorque = currentMotorTorque;
-        frontRightWheelCollider.motorTorque = currentMotorTorque;
-
-/*        currentBrakeForce = isBraking ? brakeForce : 0f;
-        ApplyBrakes();*/
+            // Constant forward acceleration
+            frontLeftWheelCollider.motorTorque = motorForce;
+            frontRightWheelCollider.motorTorque = motorForce;
+        }
     }
 
-    private void ApplyBrakes()
+    private void ApplyBrake(float brake)
     {
-        frontLeftWheelCollider.brakeTorque = currentBrakeForce;
-        frontRightWheelCollider.brakeTorque = currentBrakeForce;
-        rearLeftWheelCollider.brakeTorque = currentBrakeForce;
-        rearRightWheelCollider.brakeTorque = currentBrakeForce;
+        frontLeftWheelCollider.brakeTorque = brake;
+        frontRightWheelCollider.brakeTorque = brake;
+        rearLeftWheelCollider.brakeTorque = brake;
+        rearRightWheelCollider.brakeTorque = brake;
     }
 
     private void HandleSteering()
     {
-        float targetSteerAngle = horizontalInput * maxSteerAngle;
+        float targetSteer = horizontalInput * maxSteerAngle;
 
         currentSteerAngle = Mathf.Lerp(
             currentSteerAngle,
-            targetSteerAngle,
+            targetSteer,
             steeringSpeed * Time.fixedDeltaTime);
 
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
@@ -114,23 +130,25 @@ public class CarController : MonoBehaviour
 
     private void UpdateWheels()
     {
-        UpdateSingleWheel(frontLeftWheelCollider, frontLeftWheelTransform);
-        UpdateSingleWheel(frontRightWheelCollider, frontRightWheelTransform);
-        UpdateSingleWheel(rearLeftWheelCollider, rearLeftWheelTransform);
-        UpdateSingleWheel(rearRightWheelCollider, rearRightWheelTransform);
+        UpdateWheel(frontLeftWheelCollider, frontLeftWheelTransform);
+        UpdateWheel(frontRightWheelCollider, frontRightWheelTransform);
+        UpdateWheel(rearLeftWheelCollider, rearLeftWheelTransform);
+        UpdateWheel(rearRightWheelCollider, rearRightWheelTransform);
     }
 
-    private void UpdateSingleWheel(WheelCollider collider, Transform wheel)
+    private void UpdateWheel(WheelCollider collider, Transform wheel)
     {
-        collider.GetWorldPose(out Vector3 position, out Quaternion rotation);
+        collider.GetWorldPose(out Vector3 pos, out Quaternion rot);
 
-        wheel.position = position;
-        wheel.rotation = rotation;
+        wheel.position = pos;
+        wheel.rotation = rot;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Platform"))
+        {
             platformSpawner.Spawn();
+        }
     }
 }
