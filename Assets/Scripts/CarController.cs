@@ -41,6 +41,9 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
+    [Header("Spawner")]
+    [SerializeField] private PlatformSpawner platformSpawner;
+
     private Rigidbody rb;
 
     private void Awake()
@@ -152,5 +155,11 @@ public class CarController : MonoBehaviour
 
         wheel.position = position;
         wheel.rotation = rotation;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Platform"))
+            platformSpawner.Spawn();
     }
 }
