@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7658199137595143616}
   - component: {fileID: 5135921669413172686}
   - component: {fileID: 6525746664783971107}
+  - component: {fileID: 2055292277176978559}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -173,6 +174,30 @@ MonoBehaviour:
   frontRightWheelTransform: {fileID: 2290523645039356569}
   rearLeftWheelTransform: {fileID: 4502213419873940791}
   rearRightWheelTransform: {fileID: 540794049522113622}
+  platformSpawner: {fileID: 0}
+--- !u!136 &2055292277176978559
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995644121313473306}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 1.090574
+  m_Height: 4.74059
+  m_Direction: 2
+  m_Center: {x: -0.00000071525574, y: 1.32, z: 0.09067488}
 --- !u!1 &1142154305175708749
 GameObject:
   m_ObjectHideFlags: 0

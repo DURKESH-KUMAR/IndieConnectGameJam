@@ -1,8 +1,31 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 48ecaa62ae85768429d06f0651dfdb3d
 NativeFormatImporter:
   externalObjects: {}
+=======
+guid: 1780ab8523716e74ebad827e827ab7d2
+NativeFormatImporter:
+  externalObjects: {}
+<<<<<<< HEAD
+>>>>>>> 90a000075b21ef2615a91e876117378f2d3302f9
   mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+<<<<<<< HEAD
+=======
+=======
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265813
+  packageName: Free Low Poly Vehicle
+  packageVersion: 2.00
+  assetPath: Assets/Free Low Poly Vehicle/Material/Glass.mat
+  uploadId: 770967
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
+>>>>>>> 90a000075b21ef2615a91e876117378f2d3302f9
