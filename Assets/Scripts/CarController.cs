@@ -55,6 +55,7 @@ public class CarController : MonoBehaviour
     private void Update()
     {
         GetInput();
+        //transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, Mathf.Clamp(transform.rotation.z, -0.1f, 0.1f));
     }
 
     private void FixedUpdate()
@@ -66,47 +67,17 @@ public class CarController : MonoBehaviour
 
     private void GetInput()
     {
-        switch (controlType)
-        {
-            case ControlType.WASD:
-                horizontalInput = 0f;
-                verticalInput = 0f;
-
-                if (Input.GetKey(KeyCode.A))
-                    horizontalInput = -1f;
-                else if (Input.GetKey(KeyCode.D))
-                    horizontalInput = 1f;
-
-                if (Input.GetKey(KeyCode.W))
-                    verticalInput = 1f;
-                else if (Input.GetKey(KeyCode.S))
-                    verticalInput = -1f;
-
-                isBraking = Input.GetKey(KeyCode.LeftShift);
-                break;
-
-            case ControlType.ArrowKeys:
-                horizontalInput = 0f;
-                verticalInput = 0f;
-
-                if (Input.GetKey(KeyCode.LeftArrow))
-                    horizontalInput = -1f;
-                else if (Input.GetKey(KeyCode.RightArrow))
-                    horizontalInput = 1f;
-
-                if (Input.GetKey(KeyCode.UpArrow))
-                    verticalInput = 1f;
-                else if (Input.GetKey(KeyCode.DownArrow))
-                    verticalInput = -1f;
-
-                isBraking = Input.GetKey(KeyCode.RightShift);
-                break;
-        }
+        horizontalInput = 0f;
+        if (Input.GetKey(KeyCode.A))
+            horizontalInput = -1f;
+        else if (Input.GetKey(KeyCode.D))
+            horizontalInput = 1f;
     }
 
     private void HandleMotor()
     {
-        float targetTorque = verticalInput * motorForce;
+        //float targetTorque = verticalInput * motorForce;
+        float targetTorque =  motorForce;
 
         currentMotorTorque = Mathf.Lerp(
             currentMotorTorque,
@@ -116,8 +87,8 @@ public class CarController : MonoBehaviour
         frontLeftWheelCollider.motorTorque = currentMotorTorque;
         frontRightWheelCollider.motorTorque = currentMotorTorque;
 
-        currentBrakeForce = isBraking ? brakeForce : 0f;
-        ApplyBrakes();
+/*        currentBrakeForce = isBraking ? brakeForce : 0f;
+        ApplyBrakes();*/
     }
 
     private void ApplyBrakes()
