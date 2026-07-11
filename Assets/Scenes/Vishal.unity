@@ -145,7 +145,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262981382}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
@@ -197,7 +197,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -508,6 +508,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crosshair
       objectReference: {fileID: 0}
+    - target: {fileID: 4763457107929630808, guid: aa3307750dc979f4bb3883356ff52de2, type: 3}
+      propertyPath: mouseControllCamera
+      value: 
+      objectReference: {fileID: 1883121886}
     - target: {fileID: 6178504107375287074, guid: aa3307750dc979f4bb3883356ff52de2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.431876
