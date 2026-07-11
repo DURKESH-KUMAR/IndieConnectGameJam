@@ -1,11 +1,29 @@
 fileFormatVersion: 2
 guid: a93ba5519b5139c47874cd7980aa05bb
 ModelImporter:
+<<<<<<< HEAD
   serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
+=======
+  serializedVersion: 21300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color
+    second: {fileID: 2100000, guid: 52f5f0aaa971e884cb210d78257e7677, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: 1780ab8523716e74ebad827e827ab7d2, type: 2}
+  materials:
+    materialImportMode: 0
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -14,8 +32,15 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+<<<<<<< HEAD
     removeConstantScaleCurves: 0
     motionNodeName: 
+=======
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -38,7 +63,10 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+<<<<<<< HEAD
     importPhysicalCameras: 1
+=======
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -56,9 +84,12 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+<<<<<<< HEAD
     generateMeshLods: 0
     meshLodGenerationFlags: 0
     maximumMeshLod: -1
+=======
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -69,7 +100,10 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+<<<<<<< HEAD
     strictVertexDataChecks: 0
+=======
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -102,9 +136,22 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+<<<<<<< HEAD
   importBlendShapeDeformPercent: 1
+=======
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+<<<<<<< HEAD
+=======
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265813
+  packageName: Free Low Poly Vehicle
+  packageVersion: 2.00
+  assetPath: Assets/Free Low Poly Vehicle/Models/Sport Car_65.fbx
+  uploadId: 770967
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)

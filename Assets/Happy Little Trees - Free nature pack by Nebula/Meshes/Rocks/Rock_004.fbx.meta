@@ -1,11 +1,25 @@
 fileFormatVersion: 2
 guid: 2872b4d778e05e84eb8d278895499005
+<<<<<<< HEAD
+=======
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300824
+  packageName: Happy little trees - Free low poly nature pack by NEBULA
+  packageVersion: 1.0
+  assetPath: Assets/Happy Little Trees - Free nature pack by Nebula/Meshes/Rocks/Rock_004.fbx
+  uploadId: 706095
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
+<<<<<<< HEAD
     materialImportMode: 2
+=======
+    materialImportMode: 0
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -14,7 +28,11 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+<<<<<<< HEAD
     removeConstantScaleCurves: 0
+=======
+    removeConstantScaleCurves: 1
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
     motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -33,7 +51,11 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
+<<<<<<< HEAD
     globalScale: 1
+=======
+    globalScale: 0.8
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -68,7 +90,11 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
+<<<<<<< HEAD
     useFileScale: 1
+=======
+    useFileScale: 0
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
@@ -91,7 +117,11 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+<<<<<<< HEAD
     globalScale: 1
+=======
+    globalScale: 0.8
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -102,8 +132,13 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+<<<<<<< HEAD
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
+=======
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
+>>>>>>> parent of 37cb8ce (Merge branch 'main' of https://github.com/DURKESH-KUMAR/IndieConnectGameJam)
   additionalBone: 0
   userData: 
   assetBundleName: 
