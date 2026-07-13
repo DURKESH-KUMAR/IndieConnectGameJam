@@ -6,15 +6,17 @@ public class MouseControlls : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     [SerializeField] private Camera mouseControllCamera;
+    [SerializeField] private Rigidbody Player;
     [Header("Obstracles")]
     [SerializeField] private GameObject[] obstraclePrefabs;
     [SerializeField] int poolsize;
     [SerializeField] float dropHeight;
     [SerializeField] float cooldown;
+    [SerializeField] float ForceMultiplier;
+    [SerializeField] LayerMask roadLayer;
+    float initialForce;
     float time;
     private Queue<GameObject> ObstraclePool_1 = new Queue<GameObject>();
-    private Queue<GameObject> ObstraclePool_2 = new Queue<GameObject>();
-    private Queue<GameObject>[] obstraclePools = new Queue<GameObject>[2];
     RaycastHit hit;
     Ray ray;
 
@@ -23,14 +25,9 @@ public class MouseControlls : MonoBehaviour
         for (int i = 0; i < poolsize; i++)
         {
             GameObject temp = Instantiate(obstraclePrefabs[0]);
-            GameObject temp2 = Instantiate(obstraclePrefabs[1]);
             temp.SetActive(false);
-            temp2.SetActive(false);
             ObstraclePool_1.Enqueue(temp);
-            ObstraclePool_2.Enqueue(temp2);
         }
-        obstraclePools[0] = ObstraclePool_1;
-        obstraclePools[1] = ObstraclePool_2;
     }
 
     // Update is called once per frame
@@ -38,25 +35,29 @@ public class MouseControlls : MonoBehaviour
     {
         time += Time.deltaTime;
         ray=mouseControllCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit,1000,roadLayer))
         {
-            transform.position= hit.point;
+            transform.position= new Vector3(hit.point.x,hit.point.y,Mathf.Clamp(hit.point.z,Player.transform.position.z+10,mouseControllCamera.transform.position.z-10));
         }
         if (Input.GetMouseButtonDown(0)&&time>=cooldown)
         {
             time = 0;
             Spawn();
         }
-
+        initialForce=Player.linearVelocity.magnitude*Time.deltaTime*ForceMultiplier;
     }
 
     public void Spawn()
     {
-        int pool = Random.Range(0, obstraclePools.Length);
-        GameObject obj = obstraclePools[pool].Dequeue();
-        obj.transform.position = transform.position+Vector3.up*dropHeight;
+        GameObject obj = ObstraclePool_1.Dequeue();
+        obj.SetActive(false);
+        Rigidbody rb=obj.GetComponent<Rigidbody>();
+        rb.linearVelocity = Vector3.zero;
+        obj.transform.position = new Vector3(transform.position.x,dropHeight,transform.position.z+initialForce);
+        obj.transform.rotation = Quaternion.Euler(90, 0, 0);
         obj.SetActive(true);
-        obstraclePools[pool].Enqueue(obj);
+        //rb.AddForce(initialForce*Vector3.forward,ForceMode.Impulse);
+        ObstraclePool_1.Enqueue(obj);
     }
 
 

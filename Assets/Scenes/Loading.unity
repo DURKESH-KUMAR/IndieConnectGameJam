@@ -145,7 +145,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84426530}
   m_Enabled: 1
-  serializedVersion: 13
+  serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
@@ -197,7 +197,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShapeRadius: 0.025
+  m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -399,7 +399,6 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -440,16 +439,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoadingScreen
   loadingImage: {fileID: 1019077004}
   loadingSprites:
-  - {fileID: 21300000, guid: 07d77b4acc40ff94db83517c198a8fdd, type: 3}
-  - {fileID: 21300000, guid: 74adfba3029cc78499eb35712635dc7e, type: 3}
-  - {fileID: 21300000, guid: 27ac1ca56307f3f4ab80e24e983ebd7d, type: 3}
-  - {fileID: 21300000, guid: 0d4dd3cb856b0674ea100a1e9311f291, type: 3}
-  - {fileID: 21300000, guid: aed1868fe505af847ada3c08ab424d97, type: 3}
-  - {fileID: 21300000, guid: ac487934cb7db4649ae23716cb0ca98c, type: 3}
+  - {fileID: 21300000, guid: 9faa044636ef9f4419054d914d09cfaa, type: 3}
+  - {fileID: 21300000, guid: 70f6aea7633f29b47b7fbe5a3bb97098, type: 3}
   totalLoadingTime: 10
-  imageChangeInterval: 2
-  fadeDuration: 0.5
-  nextSceneIndex: 2
+  imageChangeInterval: 4
+  fadeDuration: 1.5
+  nextSceneIndex: 3
 --- !u!1 &1019077002
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 84a29dbf409831f43822dc7052e55dbf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

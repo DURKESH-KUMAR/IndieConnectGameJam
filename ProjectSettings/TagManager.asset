@@ -5,11 +5,14 @@ TagManager:
   serializedVersion: 3
   tags:
   - Platform
+  - PlayerCamera
+  - FxTemporaire
+  - Bomb
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Road
   - Water
   - UI
   - 

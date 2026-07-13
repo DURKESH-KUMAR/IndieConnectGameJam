@@ -29,11 +29,11 @@ public class PlatformSpawner : MonoBehaviour
     }
     void Start()
     {
-
         for (int i = 0; i < initialPlatformCount; i++)
         {
             Spawn();
         }
+
     }
 
     // Update is called once per frame

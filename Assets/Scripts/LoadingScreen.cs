@@ -21,6 +21,7 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private int nextSceneIndex = 2;
 
     private HashSet<int> usedIndexes = new HashSet<int>();
+    int currentindex = 0;
 
     private void Start()
     {
@@ -30,7 +31,7 @@ public class LoadingScreen : MonoBehaviour
             return;
         }
 
-        SetRandomImage();
+        //SetRandomImage();
 
         StartCoroutine(LoadingRoutine());
     }
@@ -39,19 +40,20 @@ public class LoadingScreen : MonoBehaviour
     {
         float timer = 0f;
 
-        while (timer < totalLoadingTime)
+        while (currentindex<loadingSprites.Count)
         {
             yield return new WaitForSeconds(imageChangeInterval - fadeDuration);
 
             yield return Fade(1f, 0f);
 
-            SetRandomImage();
+            //SetRandomImage();
+            ShowImage();
 
             yield return Fade(0f, 1f);
 
             timer += imageChangeInterval;
         }
-
+        yield return new WaitForSeconds(2);
         SceneManager.LoadScene(nextSceneIndex);
     }
 
@@ -77,6 +79,11 @@ public class LoadingScreen : MonoBehaviour
         usedIndexes.Add(index);
 
         loadingImage.sprite = loadingSprites[index];
+    }
+    void ShowImage()
+    {
+        loadingImage.sprite = loadingSprites[currentindex];
+        currentindex += 1;
     }
 
     IEnumerator Fade(float startAlpha, float endAlpha)

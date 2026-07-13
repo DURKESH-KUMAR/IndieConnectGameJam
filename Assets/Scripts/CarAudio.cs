@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CarAudio : MonoBehaviour
@@ -9,6 +10,9 @@ public class CarAudio : MonoBehaviour
     [SerializeField] float tireScreechVolume;
     [SerializeField] private float tireScreechAngle;
     [SerializeField]bool canTireScreech;
+
+    [Header("Particles")]
+    [SerializeField] private GameObject particle;
     void Start()
     {
         audiosource = GetComponent<AudioSource>();
@@ -17,14 +21,21 @@ public class CarAudio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(transform.rotation.y);
         if(Mathf.Abs(transform.rotation.y)<=0.1)
             canTireScreech=true;
         if (canTireScreech&&Mathf.Abs(transform.rotation.y)>=tireScreechAngle) 
         {
             canTireScreech = false;
             audiosource.PlayOneShot(tireScreech, tireScreechVolume);
+            StartCoroutine(DriftParticle());
         }
 
+    }
+
+    IEnumerator DriftParticle()
+    {
+        particle.SetActive(true);
+        yield return new WaitForSeconds(3);
+        particle.SetActive(false);
     }
 }
