@@ -19,6 +19,7 @@ public class LoadingScreen : MonoBehaviour
 
     [Header("Scene")]
     [SerializeField] private int nextSceneIndex = 2;
+    SceneLoader sceneloader;
 
     private HashSet<int> usedIndexes = new HashSet<int>();
     int currentindex = 0;
@@ -30,7 +31,7 @@ public class LoadingScreen : MonoBehaviour
             Debug.LogError("No loading sprites assigned!");
             return;
         }
-
+        sceneloader=GetComponent<SceneLoader>();
         //SetRandomImage();
 
         StartCoroutine(LoadingRoutine());
@@ -54,7 +55,7 @@ public class LoadingScreen : MonoBehaviour
             timer += imageChangeInterval;
         }
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(nextSceneIndex);
+        sceneloader.LoadScene();
     }
 
     void SetRandomImage()
